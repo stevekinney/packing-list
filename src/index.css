@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*,
+html,
+body {
+  @apply box-border;
+}
+
+html,
+body {
+  @apply m-0 h-screen w-screen p-0;
+}
+
+#root {
+  @apply h-screen w-screen;
+}
+
+button {
+  @apply border-2 border-primary-700 bg-primary-300 px-4 py-2 transition-colors ease-in hover:bg-primary-400 active:bg-primary-500;
+}
+
+input {
+  @apply border-2 border-primary-700 bg-primary-100 p-2 transition-colors ease-in focus:bg-primary-50 focus:outline-none;
+}
