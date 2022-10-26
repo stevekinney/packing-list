@@ -1,9 +1,14 @@
-const NewItem = ({ newItemName, setNewItemName, addItem }) => {
+import { memo, useState } from 'react';
+import { add } from '../lib/reducer';
+
+const NewItem = ({ dispatch }) => {
+  const [newItemName, setNewItemName] = useState('');
+
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        addItem(newItemName);
+        dispatch(add(newItemName));
         setNewItemName('');
       }}
     >
@@ -30,4 +35,4 @@ const NewItem = ({ newItemName, setNewItemName, addItem }) => {
   );
 };
 
-export default NewItem;
+export default memo(NewItem);

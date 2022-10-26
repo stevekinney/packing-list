@@ -1,4 +1,4 @@
-import { useId, useState } from 'react';
+import { memo, useId, useMemo, useState } from 'react';
 import { filterItems } from '../lib/items';
 import Item from './item';
 
@@ -13,11 +13,14 @@ const EmptyState = ({ items, filteredItems }) => {
   return <p className="text-primary-400">(No items.)</p>;
 };
 
-const ItemList = ({ title = 'Items', items, update, remove }) => {
+const ItemList = ({ title = 'Items', items, dispatch }) => {
   const [filter, setFilter] = useState('');
   const id = useId();
 
-  const filteredItems = filterItems(items, { name: filter });
+  const filteredItems = useMemo(
+    () => filterItems(items, { name: filter }),
+    [items, filter],
+  );
 
   return (
     <section className="border-2 border-primary-200 p-4">
@@ -34,7 +37,7 @@ const ItemList = ({ title = 'Items', items, update, remove }) => {
       </header>
       <ul className="flex flex-col gap-2">
         {filteredItems.map((item) => (
-          <Item key={item.id} item={item} update={update} remove={remove} />
+          <Item key={item.id} item={item} dispatch={dispatch} />
         ))}
       </ul>
       <EmptyState items={items} filteredItems={filteredItems} />
@@ -42,4 +45,4 @@ const ItemList = ({ title = 'Items', items, update, remove }) => {
   );
 };
 
-export default ItemList;
+export default memo(ItemList);

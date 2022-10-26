@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useMemo, useReducer, useState } from 'react';
 import {
   createItem,
   filterItems,
@@ -6,31 +6,28 @@ import {
   removeItem,
   updateItem,
 } from '../lib/items';
+import { reducer } from '../lib/reducer';
 import ItemList from './item-list';
 import NewItem from './new-item';
 
+// useMemo => for values
+// useCallback => for functions
+
 const Application = () => {
-  const [items, setItems] = useState(getInitialItems());
-  const [newItemName, setNewItemName] = useState('');
+  const [items, dispatch] = useReducer(reducer, getInitialItems());
 
-  const add = (name) => {
-    const item = createItem(name);
-    setItems([...items, item]);
-  };
+  const unpackedItems = useMemo(
+    () => filterItems(items, { packed: false }),
+    [items],
+  );
 
-  const update = (id, updates) => {
-    setItems(updateItem(items, id, updates));
-  };
-
-  const remove = (id) => {
-    setItems(removeItem(items, id));
-  };
-
-  const unpackedItems = filterItems(items, { packed: false });
-  const packedItems = filterItems(items, { packed: true });
+  const packedItems = useMemo(
+    () => filterItems(items, { packed: true }),
+    [items],
+  );
 
   const markAllAsUnpacked = () => {
-    return setItems(items.map((item) => ({ ...item, packed: false })));
+    // return setItems(items.map((item) => ({ ...item, packed: false })));
   };
 
   return (
@@ -38,23 +35,13 @@ const Application = () => {
       <header>
         <h1 className="text-2xl font-extrabold">Packing List</h1>
       </header>
-      <NewItem
-        newItemName={newItemName}
-        setNewItemName={setNewItemName}
-        addItem={add}
-      />
+      <NewItem dispatch={dispatch} />
       <ItemList
         title="Unpacked Items"
         items={unpackedItems}
-        update={update}
-        remove={remove}
+        dispatch={dispatch}
       />
-      <ItemList
-        title="Packed Items"
-        items={packedItems}
-        update={update}
-        remove={remove}
-      />
+      <ItemList title="Packed Items" items={packedItems} dispatch={dispatch} />
       <div>
         <button className="w-full" onClick={markAllAsUnpacked}>
           🏠 Mark All As Unpacked

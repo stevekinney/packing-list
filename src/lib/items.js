@@ -89,6 +89,7 @@ export const removeItem = (items, id) => {
  * @returns Item[] An array of items.
  */
 export const filterItems = (items = [], properties = {}) => {
+  console.log('filterItems');
   return items.filter((item) => {
     for (const [key, value] of Object.entries(properties)) {
       if (typeof value === 'string') {

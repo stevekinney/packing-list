@@ -1,7 +1,8 @@
 import clsx from 'clsx';
-import { useState } from 'react';
+import { memo, useState } from 'react';
+import { remove, update } from '../lib/reducer';
 
-const Item = ({ item, update, remove }) => {
+const Item = ({ item, dispatch }) => {
   const id = 'item-' + item.id;
   const [editing, setEditing] = useState(false);
 
@@ -11,7 +12,7 @@ const Item = ({ item, update, remove }) => {
         type="checkbox"
         checked={item.packed}
         id={id}
-        onChange={() => update(item.id, { packed: !item.packed })}
+        onChange={() => dispatch(update(item.id, { packed: !item.packed }))}
       />
       <label htmlFor={id} className={clsx({ hidden: editing })}>
         {item.name}
@@ -19,7 +20,9 @@ const Item = ({ item, update, remove }) => {
       <input
         value={item.name}
         className={clsx('py-0 text-sm', { hidden: !editing })}
-        onChange={(event) => update(item.id, { name: event.target.value })}
+        onChange={(event) =>
+          dispatch(update(item.id, { name: event.target.value }))
+        }
       />
       <div className="flex gap-2">
         <button
@@ -28,7 +31,10 @@ const Item = ({ item, update, remove }) => {
         >
           {editing ? '🛑 Stop Editing' : '✍️ Edit'}
         </button>
-        <button className="py-0 px-2 text-xs" onClick={() => remove(item.id)}>
+        <button
+          className="py-0 px-2 text-xs"
+          onClick={() => dispatch(remove(item.id))}
+        >
           🗑 Remove
         </button>
       </div>
@@ -36,4 +42,4 @@ const Item = ({ item, update, remove }) => {
   );
 };
 
-export default Item;
+export default memo(Item);
