@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 
 const Item = ({ item, update, remove }) => {
   const [editing, setEditing] = useState(false);
@@ -45,4 +45,4 @@ const Item = ({ item, update, remove }) => {
   );
 };
 
-export default Item;
+export default memo(Item);

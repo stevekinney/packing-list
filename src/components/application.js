@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import {
   createItem,
   filterItems,
@@ -14,10 +14,13 @@ import NewItem from './new-item';
 const Application = () => {
   const [items, setItems] = useState(getInitialItems());
 
-  const add = (name) => {
-    const item = createItem(name);
-    setItems([...items, item]);
-  };
+  const add = useCallback(
+    (name) => {
+      const item = createItem(name);
+      setItems((previousItems) => [...previousItems, item]);
+    },
+    [setItems],
+  );
 
   const update = (id, updates) => {
     setItems(updateItem(items, id, updates));
