@@ -1,4 +1,8 @@
-const NewItem = ({ newItemName, setNewItemName, addItem }) => {
+import { useState } from 'react';
+
+const NewItem = ({ addItem }) => {
+  const [newItemName, setNewItemName] = useState('');
+
   return (
     <form
       id="new-item"
