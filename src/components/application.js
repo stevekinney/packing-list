@@ -36,7 +36,7 @@ const Application = () => {
 
   return (
     <main className="flex flex-col gap-8 p-8 mx-auto lg:max-w-4xl">
-      <Header items={items} />
+      <Header count={items.length} />
       <NewItem addItem={add} />
       <section className="flex flex-col gap-8 md:flex-row">
         <ItemList
