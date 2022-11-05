@@ -1,11 +1,16 @@
-export const normalize = (state) => {
+type NormalizedState = {
+  items: { [key: string]: Item };
+  ids: string[];
+};
+
+export const normalize = (state: Item[]): NormalizedState => {
   if (!Array.isArray(state)) {
     console.error('[normalize] Expecting an array, but received:', state);
     return state;
   }
 
   const ids = [];
-  const items = {};
+  const items: NormalizedState['items'] = {};
 
   for (const item of state) {
     const { id } = item;
@@ -16,7 +21,7 @@ export const normalize = (state) => {
   return { items, ids };
 };
 
-export const normalizeWithSeparateLists = (state) => {
+export const normalizeWithSeparateLists = (state: Item[] | NormalizedState) => {
   if (Array.isArray(state)) state = normalize(state);
 
   const { items } = state;

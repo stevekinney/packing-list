@@ -33,7 +33,8 @@ describe(reducer, () => {
   });
 
   it('should remove an item', () => {
-    const result = reducer([{ id, name, packed: false }], remove(id));
+    const items = [{ id, name, packed: false }];
+    const result = reducer(items, remove(id));
     expect(result).toEqual([]);
   });
 
@@ -43,7 +44,7 @@ describe(reducer, () => {
       { id: '2', name: 'Sony Walkman', packed: true },
     ];
 
-    const result = reducer(items, markAllAsUnpacked);
+    const result = reducer(items, markAllAsUnpacked());
 
     expect(result).toEqual([
       { id: '1', name: 'Sweatshirt', packed: false },

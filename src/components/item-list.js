@@ -20,14 +20,14 @@ const ItemList = ({ title = 'Items', items, update, remove }) => {
   const filteredItems = filterItems(items, { name: filter });
 
   return (
-    <section className="border-2 border-primary-200 p-4">
+    <section className="w-full p-4 border-2 border-primary-200">
       <header className="mb-4">
         <h2 className="text-lg font-semibold">{title}</h2>
         <label htmlFor={id} className="hidden"></label>
         <input
           id={id}
           placeholder="Filter"
-          className="my-2 w-full py-1"
+          className="w-full py-1 my-2"
           value={filter}
           onChange={(event) => setFilter(event.target.value)}
         />

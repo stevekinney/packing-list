@@ -34,28 +34,30 @@ const Application = () => {
   };
 
   return (
-    <main className="mx-auto my-20 flex max-w-xl flex-col gap-8">
+    <main className="flex flex-col gap-8 p-8 mx-auto lg:max-w-4xl">
       <header>
-        <h1 className="text-2xl font-extrabold">Packing List</h1>
+        <h1 className="text-2xl font-bold">Packing List</h1>
       </header>
       <NewItem
         newItemName={newItemName}
         setNewItemName={setNewItemName}
         addItem={add}
       />
-      <ItemList
-        title="Unpacked Items"
-        items={unpackedItems}
-        update={update}
-        remove={remove}
-      />
-      <ItemList
-        title="Packed Items"
-        items={packedItems}
-        update={update}
-        remove={remove}
-      />
-      <div>
+      <section className="flex flex-col gap-8 md:flex-row">
+        <ItemList
+          title="Unpacked Items"
+          items={unpackedItems}
+          update={update}
+          remove={remove}
+        />
+        <ItemList
+          title="Packed Items"
+          items={packedItems}
+          update={update}
+          remove={remove}
+        />
+      </section>
+      <div className="mb-16">
         <button className="w-full" onClick={markAllAsUnpacked}>
           🏠 Mark All As Unpacked
         </button>

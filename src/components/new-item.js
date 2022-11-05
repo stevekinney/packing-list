@@ -10,17 +10,19 @@ const NewItem = ({ newItemName, setNewItemName, addItem }) => {
       <label htmlFor="new-item" className="font-semibold">
         New Item Name
       </label>
-      <div className="my-2 flex">
+      <div className="flex my-2">
         <input
           id="new-item"
           className="w-full"
           type="search"
           placeholder="New Item"
           value={newItemName}
+          autoFocus
           onChange={(event) => setNewItemName(event.target.value)}
         />
         <button
-          className="whitespace-nowrap border-l-0 bg-primary-300"
+          className="border-l-0 whitespace-nowrap bg-primary-300"
+          aria-label={`Add ${newItemName}`}
           type="submit"
         >
           ➕ Add New Item
