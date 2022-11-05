@@ -6,7 +6,9 @@ import {
   removeItem,
   updateItem,
 } from '../lib/items';
+import Header from './header';
 import ItemList from './item-list';
+import MarkAllAsUnpacked from './mark-all-as-unpacked';
 import NewItem from './new-item';
 
 const Application = () => {
@@ -35,9 +37,7 @@ const Application = () => {
 
   return (
     <main className="flex flex-col gap-8 p-8 mx-auto lg:max-w-4xl">
-      <header>
-        <h1 className="text-2xl font-bold">Packing List</h1>
-      </header>
+      <Header items={items} />
       <NewItem
         newItemName={newItemName}
         setNewItemName={setNewItemName}
@@ -57,11 +57,7 @@ const Application = () => {
           remove={remove}
         />
       </section>
-      <div className="mb-16">
-        <button className="w-full" onClick={markAllAsUnpacked}>
-          🏠 Mark All As Unpacked
-        </button>
-      </div>
+      <MarkAllAsUnpacked onClick={markAllAsUnpacked} />
     </main>
   );
 };
