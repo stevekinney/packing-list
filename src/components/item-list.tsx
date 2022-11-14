@@ -6,11 +6,9 @@ import Item from './item';
 type ItemsProps = {
   title: string;
   items: Item[];
-  update: (id: string, updates: any) => void;
-  remove: (id: string) => void;
 };
 
-const ItemList = ({ title = 'Items', items, update, remove }: ItemsProps) => {
+const ItemList = ({ title = 'Items', items }: ItemsProps) => {
   const [filter, setFilter] = useState('');
   const id = toKebabCase(title);
 
@@ -32,7 +30,7 @@ const ItemList = ({ title = 'Items', items, update, remove }: ItemsProps) => {
       </header>
       <ul className="flex flex-col gap-2">
         {filteredItems.map((item) => (
-          <Item key={item.id} item={item} update={update} remove={remove} />
+          <Item key={item.id} item={item} />
         ))}
       </ul>
       {isEmpty && <p className="text-primary-400">(Nothing to show.)</p>}
