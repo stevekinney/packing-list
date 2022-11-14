@@ -1,7 +1,13 @@
 import clsx from 'clsx';
 import { useState } from 'react';
 
-const Item = ({ item, update, remove }) => {
+type ItemProps = {
+  item: Item;
+  update: (id: string, updates: any) => void;
+  remove: (id: string) => void;
+};
+
+const Item = ({ item, update, remove }: ItemProps) => {
   const [editing, setEditing] = useState(false);
 
   return (

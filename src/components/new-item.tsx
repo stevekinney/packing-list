@@ -1,4 +1,12 @@
-const NewItem = ({ newItemName, setNewItemName, addItem }) => {
+import { useState } from 'react';
+
+type NewItemProps = {
+  addItem: (name: string) => void;
+};
+
+const NewItem = ({ addItem }: NewItemProps) => {
+  const [newItemName, setNewItemName] = useState('');
+
   return (
     <form
       id="new-item"

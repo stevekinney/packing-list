@@ -3,18 +3,19 @@ import { filterItems } from '../lib/items';
 import { toKebabCase } from '../lib/kebab-case';
 import Item from './item';
 
-const EmptyState = ({ id, items, filteredItems }) => (
-  <p id={id} className="text-primary-400">
-    (No items.)
-  </p>
-);
+type ItemsProps = {
+  title: string;
+  items: Item[];
+  update: (id: string, updates: any) => void;
+  remove: (id: string) => void;
+};
 
-const ItemList = ({ title = 'Items', items, update, remove }) => {
+const ItemList = ({ title = 'Items', items, update, remove }: ItemsProps) => {
   const [filter, setFilter] = useState('');
   const id = toKebabCase(title);
 
   const filteredItems = filterItems(items, { name: filter });
-  const isEmpty = !items.length;
+  const isEmpty = !filteredItems.length;
 
   return (
     <section id={id} className="w-full p-4 border-2 border-primary-200">
@@ -34,13 +35,7 @@ const ItemList = ({ title = 'Items', items, update, remove }) => {
           <Item key={item.id} item={item} update={update} remove={remove} />
         ))}
       </ul>
-      {isEmpty && (
-        <EmptyState
-          id={`${id}-empty-state`}
-          items={items}
-          filteredItems={filteredItems}
-        />
-      )}
+      {isEmpty && <p className="text-primary-400">(Nothing to show.)</p>}
     </section>
   );
 };
