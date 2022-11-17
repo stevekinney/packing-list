@@ -1,4 +1,8 @@
-const NewItem = ({ newItemName, setNewItemName, addItem }) => {
+import { memo, useState } from 'react';
+
+const NewItem = ({ addItem }) => {
+  const [newItemName, setNewItemName] = useState('');
+
   return (
     <form
       id="new-item"
@@ -34,4 +38,4 @@ const NewItem = ({ newItemName, setNewItemName, addItem }) => {
   );
 };
 
-export default NewItem;
+export default memo(NewItem);

@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 const MarkAllAsUnpacked = ({ onClick }) => (
   <div className="mb-16">
     <button className="w-full" onClick={onClick}>
@@ -6,4 +8,4 @@ const MarkAllAsUnpacked = ({ onClick }) => (
   </div>
 );
 
-export default MarkAllAsUnpacked;
+export default memo(MarkAllAsUnpacked);

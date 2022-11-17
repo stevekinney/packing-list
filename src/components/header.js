@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 const Header = ({ items }) => (
   <header id="page-header">
     <h1 className="text-2xl font-bold">Packing List</h1>
@@ -7,4 +9,4 @@ const Header = ({ items }) => (
   </header>
 );
 
-export default Header;
+export default memo(Header);
